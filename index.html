@@ -26,19 +26,33 @@
 	<!-- Header & Navigation -->
 	<header class="bg-white shadow-sm sticky top-0 z-50">
 		<nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+			<!-- Logo -->
 			<a href="#" class="text-2xl font-bold text-gray-800">Baumax Labs</a>
+
+			<!-- Desktop Menu -->
 			<div class="hidden md:flex space-x-6">
 				<a href="#about" class="text-gray-600 hover:text-indigo-600 transition-colors">About</a>
 				<a href="#portfolio" class="text-gray-600 hover:text-indigo-600 transition-colors">Portfolio</a>
 				<a href="#contact" class="text-gray-600 hover:text-indigo-600 transition-colors">Contact</a>
 			</div>
+
 			<!-- Mobile Menu Button -->
-			<button class="md:hidden text-gray-600 hover:text-indigo-600 focus:outline-none">
-				<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+			<button id="menuButton" class="md:hidden text-gray-600 hover:text-indigo-600 focus:outline-none">
+				<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
 				</svg>
 			</button>
 		</nav>
+
+		<!-- Mobile Menu (animated) -->
+		<div id="mobileMenu"
+			class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out md:hidden bg-gray-50 border-t border-gray-200">
+			<div class="px-4 py-3 space-y-2">
+				<a href="#about" class="block text-gray-700 hover:text-indigo-600">About</a>
+				<a href="#portfolio" class="block text-gray-700 hover:text-indigo-600">Portfolio</a>
+				<a href="#contact" class="block text-gray-700 hover:text-indigo-600">Contact</a>
+			</div>
+		</div>
 	</header>
 
 	<!-- Hero Section -->
@@ -149,8 +163,6 @@
                      focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"></textarea>
 					</div>
 					<input type="text" name="_gotcha" style="display:none">
-					<!-- Success redirect  -->
-					<input type="hidden" name="_next" value="https://www.soravita.shop/pages/about-our-shirts">
 					<!-- Submit -->
 					<button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg
                  hover:bg-indigo-700 transition-all shadow-lg transform hover:scale-105">
@@ -177,5 +189,34 @@
 	</footer>
 
 </body>
+
+<script>
+	const menuButton = document.getElementById("menuButton");
+	const mobileMenu = document.getElementById("mobileMenu");
+	const menuLinks = mobileMenu.querySelectorAll("a");
+
+	let menuOpen = false;
+
+	menuButton.addEventListener("click", () => {
+		menuOpen = !menuOpen;
+
+		if (menuOpen) {
+			mobileMenu.classList.remove("max-h-0");
+			mobileMenu.classList.add("max-h-96"); // adjust height as needed
+		} else {
+			mobileMenu.classList.remove("max-h-96");
+			mobileMenu.classList.add("max-h-0");
+		}
+	});
+
+	// Auto-close when a link is clicked
+	menuLinks.forEach(link => {
+		link.addEventListener("click", () => {
+			mobileMenu.classList.remove("max-h-96");
+			mobileMenu.classList.add("max-h-0");
+			menuOpen = false;
+		});
+	});
+</script>
 
 </html>
